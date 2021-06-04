@@ -1,0 +1,24 @@
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .form {
+        margin-top: 5px;
+        
+        .field {
+            width: 100%;
+        }
+    }
+    
+    .form-actions {
+        display: flex;
+        flex: 1;
+        justify-content: flex-end;
+        align-items: flex-end;
+    
+        .btn-reset {
+            margin-right: 10px;
+        }
+    }
+}

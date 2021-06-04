@@ -1,0 +1,18 @@
+<div class="container">
+    <h1>{{config.title}}</h1>
+    <div>
+        <mat-divider></mat-divider>
+    </div>
+
+    <form [formGroup]="theForm" class="form">
+        <mat-form-field appearance="outline" class="field" *ngFor="let field of config.fields;">
+            <mat-label>{{field.title}}</mat-label>
+            <input [type]="field.type" matInput [placeholder]="field.placeholder" [formControlName]="field.name">
+        </mat-form-field>
+    </form>
+    
+    <div class="form-actions">
+        <button mat-raised-button color="warn" (click)="onReset()" class="btn-reset">Reset</button>
+        <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+    </div>
+</div>

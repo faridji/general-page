@@ -1,0 +1,13 @@
+
+<div class="container">
+    <h1>{{config.title}}</h1>
+    
+    <table>
+        <tr>
+          <th *ngFor="let col of config.columns;">{{col.title}}</th>
+        </tr>
+        <tr *ngFor="let rec of data;">
+          <td *ngFor="let col of config.columns;">{{rec[col.name]}}</td>
+        </tr>
+    </table>  
+</div>
