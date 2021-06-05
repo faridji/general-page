@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormConfig } from '../models/general.models';
 
 
@@ -21,6 +21,10 @@ export class GeneralFormComponent implements OnInit {
 	ngOnInit(): void {
 		for (let field of this.config.fields) {
 			this.theForm.addControl(field.name, new FormControl());
+
+			if (field.required) {
+				this.theForm.get(field.name).setValidators(Validators.required);
+			}
 		}
 	}
 

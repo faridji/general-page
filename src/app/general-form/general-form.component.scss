@@ -5,6 +5,8 @@
 
     .form {
         margin-top: 5px;
+        flex: 1;
+        overflow: auto;
         
         .field {
             width: 100%;
@@ -13,12 +15,19 @@
     
     .form-actions {
         display: flex;
-        flex: 1;
         justify-content: flex-end;
         align-items: flex-end;
     
         .btn-reset {
             margin-right: 10px;
         }
+    }
+    
+    .radio-button {
+        margin-left: 10px;
+    }
+    
+    .mat-radio-button ~ .mat-radio-button {
+        margin: 0 0 10px 16px;
     }
 }

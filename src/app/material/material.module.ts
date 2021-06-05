@@ -4,7 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [],
@@ -13,14 +15,23 @@ import { MatDividerModule } from '@angular/material/divider';
 
     MatButtonModule,
     MatInputModule,
-	MatCardModule,
-	MatDividerModule,
+    MatCardModule,
+    MatDividerModule,
+	MatDatepickerModule,
+	MatNativeDateModule,
+	MatRadioModule
   ],
   exports: [
     MatInputModule,
     MatButtonModule,
-	MatCardModule,
-	MatDividerModule,
+    MatCardModule,
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+	MatRadioModule
+  ],
+  providers: [
+	MatDatepickerModule
   ]
 })
 export class MaterialModule { }

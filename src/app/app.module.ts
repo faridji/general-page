@@ -8,6 +8,8 @@ import { GeneralFormComponent } from './general-form/general-form.component';
 import { GeneralTableComponent } from './general-table/general-table.component';
 import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DatePipe, DecimalPipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     
     MaterialModule,
   ],
-  providers: [],
+  providers: [DatePipe, DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

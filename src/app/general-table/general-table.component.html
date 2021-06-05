@@ -6,8 +6,13 @@
         <tr>
           <th *ngFor="let col of config.columns;">{{col.title}}</th>
         </tr>
+
         <tr *ngFor="let rec of data;">
-          <td *ngFor="let col of config.columns;">{{rec[col.name]}}</td>
+          <td *ngFor="let col of config.columns;">{{getColumnTitle(rec, col)}}</td>
         </tr>
-    </table>  
+
+		<tr *ngIf="data.length == 0">
+			<td class="no-record" [colSpan]="config.columns.length">No Record Found</td>
+		</tr>
+    </table>
 </div>

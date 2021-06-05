@@ -10,19 +10,20 @@ export interface TableConfig {
 
 export interface FormConfig {
     title: string;
-
     fields: FormField[];
 }
 
 export interface TableColumn {
     name: string,
     title: string;
-    format?: string;
+    format?: 'date' | 'number';
 }
 
 export interface FormField {
     name: string;
     title: string;
     placeholder: string;
-    type: string;
+    type: 'text' | 'number' | 'radio' | 'date';
+    required?: boolean;
+    options?: string[];
 }
