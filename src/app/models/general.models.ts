@@ -17,6 +17,7 @@ export interface TableColumn {
     name: string,
     title: string;
     format?: 'date' | 'number';
+    sortable?: boolean;
 }
 
 export interface FormField {

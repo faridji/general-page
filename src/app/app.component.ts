@@ -15,7 +15,7 @@ export class AppComponent {
 				title: 'Employees',
 				columns: [
 					{name: 'name', title: 'Name'}, 
-					{name: 'age', title: 'Age'}, 
+					{name: 'age', title: 'Age', sortable: true}, 
 					{name: 'education', title: 'Education'},
 					{name: 'gender', title: 'Gender'},
 					{name: 'date_of_joining', title: 'Joining Date', format: 'date'}

@@ -7,6 +7,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort'; 
+
 
 @NgModule({
   declarations: [],
@@ -19,7 +23,10 @@ import { MatRadioModule } from '@angular/material/radio';
     MatDividerModule,
 	MatDatepickerModule,
 	MatNativeDateModule,
-	MatRadioModule
+	MatRadioModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule,
   ],
   exports: [
     MatInputModule,
@@ -28,7 +35,10 @@ import { MatRadioModule } from '@angular/material/radio';
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-	MatRadioModule
+	MatRadioModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule,
   ],
   providers: [
 	MatDatepickerModule

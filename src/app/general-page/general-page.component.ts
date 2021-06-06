@@ -13,13 +13,13 @@ export class GeneralPageComponent implements OnInit {
 	tableData: any[];
 
 	constructor() {
-		this.tableData = [];
+        this.tableData = [];
 	}
 
 	ngOnInit(): void {
 	}
 
 	onFormSignals(formData: any): void {
-		this.tableData.push(formData);
+		this.tableData = [...this.tableData, {...formData}];
 	}
 }
