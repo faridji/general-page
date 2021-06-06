@@ -3,7 +3,7 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { TableColumn, TableConfig } from '../models/general.models';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -44,7 +44,6 @@ export class GeneralTableComponent implements OnInit, OnChanges, OnDestroy {
         }
 
         this.checkIfNoRecord();
-        this.totalRecords = this.data.length;
 
         this.filterFormControl.valueChanges.pipe(takeUntil(this.subscription), debounceTime(300), distinctUntilChanged())
             .subscribe(val => {
@@ -54,8 +53,8 @@ export class GeneralTableComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnChanges(changes: SimpleChanges): void {
         this.hasError = false;
-        this.checkIfNoRecord();
         this.totalRecords = this.data.length;
+        this.checkIfNoRecord();
     }
 
     ngOnDestroy(): void {
@@ -64,7 +63,6 @@ export class GeneralTableComponent implements OnInit, OnChanges, OnDestroy {
 
     checkIfNoRecord(): void {
         if (this.data.length === 0) {
-            console.log('NO Record found.')
             this.hasError = true;
             const r = {
                 title: 'No Record Found',
