@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DataService } from '../data.service';
 import { FormConfig } from '../models/general.models';
 
 
@@ -14,7 +15,7 @@ export class GeneralFormComponent implements OnInit {
 
 	theForm: FormGroup;
 
-	constructor() {
+	constructor(private dataService: DataService) {
 		this.theForm = new FormGroup({});
 	}
 
@@ -29,7 +30,9 @@ export class GeneralFormComponent implements OnInit {
 	}
 
 	onSave(): void {
-		this.signal.emit(this.theForm.value);
+        const rec = this.theForm.value;
+        this.dataService.setData(rec);
+        this.signal.emit(rec);
 		this.onReset();
 	}
 

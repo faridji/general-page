@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 import { PageConfig } from '../models/general.models';
 
 
@@ -12,7 +13,7 @@ export class GeneralPageComponent implements OnInit {
 
 	tableData: any[];
 
-	constructor() {
+	constructor(private dataService: DataService) {
         this.tableData = [];
 	}
 
@@ -20,6 +21,7 @@ export class GeneralPageComponent implements OnInit {
 	}
 
 	onFormSignals(formData: any): void {
-		this.tableData = [...this.tableData, {...formData}];
+		// this.tableData = [...this.tableData, {...formData}];
+        this.tableData = this.dataService.getData().slice();
 	}
 }
