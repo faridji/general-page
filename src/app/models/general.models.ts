@@ -1,14 +1,18 @@
-export interface PageConfig {
+export interface PageConfig {    
     tableConfig: TableConfig;
     formConfig: FormConfig;
 }
 
 export interface TableConfig {
+    slug: string;
+
     title: string;
     columns: TableColumn[];
 }
 
 export interface FormConfig {
+    slug: string;
+
     title: string;
     fields: FormField[];
 }

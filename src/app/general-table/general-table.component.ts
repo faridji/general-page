@@ -89,7 +89,7 @@ export class GeneralTableComponent implements OnInit, OnChanges, OnDestroy {
         if (col.format) {
             switch(col.format) {
                 case 'date':
-                    return this.dateFormater.transform(rec[col.name], 'dd MMM yyyy');
+                    return this.dateFormater.transform(rec[col.name] * 1000, 'dd MMM yyyy');
 
                 case 'number':
                     return this.numberFormater.transform(rec[col.name]);

@@ -10,7 +10,8 @@
                 <ng-container *ngSwitchCase="'date'">
                     <mat-form-field appearance="outline" class="field" >
                         <mat-label>{{field.title}}</mat-label>
-                        <input matInput [matDatepicker]="picker" [formControlName]="field.name">
+                        <input matInput (dateChange)="onDateChange($event, theForm.controls[field.name])" 
+                            [matDatepicker]="picker">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
 

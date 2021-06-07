@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DataService } from '../data.service';
 import { FormConfig } from '../models/general.models';
 
@@ -29,9 +30,13 @@ export class GeneralFormComponent implements OnInit {
 		}
 	}
 
+    onDateChange(event: MatDatepickerInputEvent<any>, control: AbstractControl): void {
+        control.setValue(event.value.valueOf() / 1000);
+    }
+
 	onSave(): void {
         const rec = this.theForm.value;
-        this.dataService.setData(rec);
+        this.dataService.setData(this.config.slug, rec);
         this.signal.emit(rec);
 		this.onReset();
 	}

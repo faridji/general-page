@@ -12,7 +12,9 @@ export class AppComponent {
 	constructor() {
 		this.pageConfig = {
 			tableConfig: {
+                slug: 'employees',
 				title: 'Employees',
+
 				columns: [
 					{name: 'name', title: 'Name'}, 
 					{name: 'age', title: 'Age', sortable: true}, 
@@ -23,7 +25,9 @@ export class AppComponent {
 			},
 
 			formConfig: {
+                slug: 'employees',
 				title: 'Add Employee',
+                
 				fields: [
 					{name: 'name', title: 'Full Name', type: 'text', placeholder: 'Enter Full Name', required: true},
 					{name: 'age', title: 'Age', type: 'number', placeholder: 'Enter Age', required: true},

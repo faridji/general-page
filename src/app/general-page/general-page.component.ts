@@ -18,10 +18,17 @@ export class GeneralPageComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+        this.loadData();
 	}
+
+    loadData(): void {
+        this.dataService.getData(this.config.tableConfig.slug).subscribe(data => {
+            this.tableData = data;
+        })
+    }
 
 	onFormSignals(formData: any): void {
 		// this.tableData = [...this.tableData, {...formData}];
-        this.tableData = this.dataService.getData().slice();
+        this.loadData();
 	}
 }

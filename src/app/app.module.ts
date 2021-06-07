@@ -9,7 +9,9 @@ import { GeneralTableComponent } from './general-table/general-table.component';
 import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DatePipe, DecimalPipe } from '@angular/common';
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { DatePipe, DecimalPipe } from '@angular/common';
     ReactiveFormsModule,
     
     MaterialModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
   providers: [DatePipe, DecimalPipe],
   bootstrap: [AppComponent]
