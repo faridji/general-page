@@ -39,6 +39,10 @@
         }
     }
 
+    ::ng-deep .mat-sort-header-arrow {
+        color: #fff;
+    }
+
     .paginator {
         height: 50px;
         background-color: #e0e0e0;
