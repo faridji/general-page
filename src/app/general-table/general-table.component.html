@@ -10,7 +10,7 @@
 
     <div class="table">
         <div>
-            <table mat-table [dataSource]="data" matSort (matSortChange)="onSortChange($event)">
+            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange($event)">
                 <ng-container *ngFor="let col of config.columns">
                     <ng-container [matColumnDef]="col.name">
                         <ng-container *ngIf="col.sortable; else nonSortableHeader">
@@ -32,7 +32,7 @@
                     </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
                 <tr mat-row *matRowDef="let row; columns: ['error']; when: showError"></tr>

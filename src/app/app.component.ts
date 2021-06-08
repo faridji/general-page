@@ -8,6 +8,7 @@ import { PageConfig } from './models/general.models';
 })
 export class AppComponent {
 	pageConfig: PageConfig;
+    vehiclePageConfig: PageConfig;
 
 	constructor() {
 		this.pageConfig = {
@@ -34,6 +35,30 @@ export class AppComponent {
 					{name: 'education', title: 'Education', type: 'text', placeholder: 'Enter Education', required: true},
 					{name: 'gender', title: 'Select Gender', type: 'radio', placeholder: 'Select Gender', options: ['male', 'female'], required: true},
 					{name: 'date_of_joining', title: 'Joining Date', type: 'date', placeholder: 'Select Joining Date', required: true},
+				]
+			}
+		}
+
+        this.vehiclePageConfig = {
+			tableConfig: {
+                slug: 'cars',
+				title: 'Cars',
+
+				columns: [
+					{name: 'name', title: 'Name'}, 
+					{name: 'model', title: 'Model'}, 
+					{name: 'year_of_manufacturer', title: 'Year of Manufacturer', format: 'date' },
+				]
+			},
+
+			formConfig: {
+                slug: 'cars',
+				title: 'Add Car',
+                
+				fields: [
+					{name: 'name', title: 'Name', type: 'text', placeholder: 'Enter Name', required: true},
+					{name: 'model', title: 'Model', type: 'text', placeholder: 'Enter model', required: true},
+					{name: 'year_of_manufacturer', title: 'Year of Manufacturer', type: 'date', placeholder: 'Manufacturing year', required: true}
 				]
 			}
 		}

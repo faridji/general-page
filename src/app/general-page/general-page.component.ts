@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { DataService } from '../data.service';
+import { Component, Input } from '@angular/core';
 import { PageConfig } from '../models/general.models';
 
 
@@ -8,27 +7,8 @@ import { PageConfig } from '../models/general.models';
   templateUrl: './general-page.component.html',
   styleUrls: ['./general-page.component.scss'],
 })
-export class GeneralPageComponent implements OnInit {
+export class GeneralPageComponent {
 	@Input() config: PageConfig;
 
-	tableData: any[];
-
-	constructor(private dataService: DataService) {
-        this.tableData = [];
-	}
-
-	ngOnInit(): void {
-        this.loadData();
-	}
-
-    loadData(): void {
-        this.dataService.getData(this.config.tableConfig.slug).subscribe(data => {
-            this.tableData = data;
-        })
-    }
-
-	onFormSignals(formData: any): void {
-		// this.tableData = [...this.tableData, {...formData}];
-        this.loadData();
-	}
+	constructor() {}
 }

@@ -1,9 +1,11 @@
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { TableColumn, TableConfig } from '../models/general.models';
 import { Subject } from 'rxjs';
+import { DataService } from '../data.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -11,8 +13,8 @@ import { Subject } from 'rxjs';
   templateUrl: './general-table.component.html',
   styleUrls: ['./general-table.component.scss']
 })
-export class GeneralTableComponent implements OnInit, OnChanges, OnDestroy {
-	@Input() data: any[];
+export class GeneralTableComponent implements OnInit, OnDestroy {
+	@Input() dataSource: any;
 	@Input() config: TableConfig;
 
     displayedColumns: string[];
@@ -27,8 +29,11 @@ export class GeneralTableComponent implements OnInit, OnChanges, OnDestroy {
         return this.hasError;
     }
 
-	constructor(private dateFormater: DatePipe, private numberFormater: DecimalPipe) {
-        this.data = [];
+	constructor(private dateFormater: DatePipe, 
+                private numberFormater: DecimalPipe, 
+                private dataService: DataService) 
+    {
+        this.dataSource = new MatTableDataSource<any[]>();
         this.displayedColumns = [];
         this.hasError = false;
         this.pageSizeOptions = [5, 10, 25, 100]
@@ -43,33 +48,37 @@ export class GeneralTableComponent implements OnInit, OnChanges, OnDestroy {
             this.displayedColumns.push(col.name);
         }
 
-        this.checkIfNoRecord();
-
         this.filterFormControl.valueChanges.pipe(takeUntil(this.subscription), debounceTime(300), distinctUntilChanged())
             .subscribe(val => {
                 this.applyFilter(val);
             });
 	}
 
-    ngOnChanges(changes: SimpleChanges): void {
-        this.hasError = false;
-        this.totalRecords = this.data.length;
-        this.checkIfNoRecord();
-    }
-
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }
 
+    ngAfterViewInit(): void {
+        this.loadData();
+    }
+
+    loadData(): void {
+        this.dataService.getData(this.config.slug).subscribe(data => {
+            this.dataSource.data = data;
+            this.totalRecords = this.dataSource.data.length;
+            this.checkIfNoRecord();
+        });
+    }
+
     checkIfNoRecord(): void {
-        if (this.data.length === 0) {
+        if (this.dataSource.data.length === 0) {
             this.hasError = true;
             const r = {
                 title: 'No Record Found',
                 message: ''
             };
 
-            this.data = [r];
+            this.dataSource = [r];
         }
     }
 

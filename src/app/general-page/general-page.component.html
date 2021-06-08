@@ -1,15 +1,9 @@
 <div class="general-page">
     <mat-card class="table-card">
-        <app-general-table 
-            [data]="tableData"
-            [config]="config.tableConfig">
-        </app-general-table>
+        <app-general-table [config]="config.tableConfig"></app-general-table>
     </mat-card>
 
     <mat-card class="form-card">
-        <app-general-form 
-            [config]="config.formConfig" 
-            (signal)="onFormSignals($event)">
-        </app-general-form>
+        <app-general-form [config]="config.formConfig"></app-general-form>
     </mat-card>
 </div>
