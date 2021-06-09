@@ -5,11 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class DataService {
-    data: any[];
-
-    constructor(private store: AngularFirestore) {
-        this.data = [];
-    }
+    constructor(private store: AngularFirestore) {}
 
     getData(slug: string): Observable<any> {
         return this.store.collection(slug).valueChanges({ idField: 'id' }) as Observable<any[]>;
@@ -17,5 +13,13 @@ export class DataService {
 
     setData(slug: string, rec: any) {
         this.store.collection(slug).add(rec);
+    }
+
+    deleteData(slug: string, rec: any): Promise<void> {
+        return this.store.collection(slug).doc(rec.id).delete();
+    }
+
+    updateData(slug: string, rec: any): Promise<void>{
+        return this.store.collection(slug).doc(rec.id).update(rec);
     }
 }

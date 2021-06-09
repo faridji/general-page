@@ -8,6 +8,7 @@ export interface TableConfig {
 
     title: string;
     columns: TableColumn[];
+    rowActions?: RowAction[];
 }
 
 export interface FormConfig {
@@ -20,8 +21,19 @@ export interface FormConfig {
 export interface TableColumn {
     name: string,
     title: string;
+
+    visible?: boolean;
     format?: 'date' | 'number';
     sortable?: boolean;
+}
+
+export interface RowAction {
+    name: string;
+    title: string;
+    action: string;
+    icon: string;
+
+    condition?: (row: any, action: string) => boolean
 }
 
 export interface FormField {
@@ -31,4 +43,9 @@ export interface FormField {
     type: 'text' | 'number' | 'radio' | 'date';
     required?: boolean;
     options?: string[];
+}
+
+export interface TableSignal {
+    type: string;
+    row: any;
 }

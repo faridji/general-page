@@ -15,8 +15,13 @@ export class AppComponent {
 			tableConfig: {
                 slug: 'employees',
 				title: 'Employees',
+                rowActions: [
+                    {name: 'edit', title: 'Edit', icon: 'edit', action: 'OnEdit'},
+                    {name: 'delete', title: 'Delete', icon: 'delete', action: 'OnDelete'},
+                ],
 
 				columns: [
+                    {name: 'id', title: 'Id', visible: false},
 					{name: 'name', title: 'Name'}, 
 					{name: 'age', title: 'Age', sortable: true}, 
 					{name: 'education', title: 'Education'},
@@ -27,7 +32,7 @@ export class AppComponent {
 
 			formConfig: {
                 slug: 'employees',
-				title: 'Add Employee',
+				title: 'Employee',
                 
 				fields: [
 					{name: 'name', title: 'Full Name', type: 'text', placeholder: 'Enter Full Name', required: true},

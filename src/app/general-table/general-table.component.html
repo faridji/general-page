@@ -1,11 +1,21 @@
 
 <div class="container">
     <div class="table-main-header">
-        <h1>{{config.title}}</h1>
-        <mat-form-field style="width: 30%; margin-left: 50px;">
-            <mat-label>Filter</mat-label>
-            <input matInput placeholder="Filter Data" [formControl]="filterFormControl">
-        </mat-form-field>
+        <div class="title-section">
+            <h1>{{config.title}}</h1>
+            <mat-form-field style="margin-left: 50px;">
+                <mat-label>Filter</mat-label>
+                <input matInput placeholder="Filter Data" [formControl]="filterFormControl">
+            </mat-form-field>
+        </div>
+
+        <div class="row-actions" *ngIf="selectedRow">
+            <button mat-button color="primary" class="action"
+                *ngFor="let ac of config.rowActions" 
+                (click)="onRowAction(ac)">
+                {{ac.title}}
+            </button>
+        </div>
     </div>
 
     <div class="table">
@@ -33,7 +43,10 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+                    [class.selected]="row == selectedRow"
+                    style="cursor: pointer;" (click)="onRowClick(row)">
+                </tr>
 
                 <tr mat-row *matRowDef="let row; columns: ['error']; when: showError"></tr>
             </table>

@@ -1,8 +1,8 @@
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { TableColumn, TableConfig } from '../models/general.models';
+import { RowAction, TableColumn, TableConfig, TableSignal } from '../models/general.models';
 import { Subject } from 'rxjs';
 import { DataService } from '../data.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,6 +17,8 @@ export class GeneralTableComponent implements OnInit, OnDestroy {
 	@Input() dataSource: any;
 	@Input() config: TableConfig;
 
+    @Output() signal = new EventEmitter<TableSignal>();
+
     displayedColumns: string[];
     hasError: boolean;
     pageSizeOptions: number[];
@@ -24,6 +26,7 @@ export class GeneralTableComponent implements OnInit, OnDestroy {
 
     filterFormControl: FormControl;
     subscription: Subject<any>;
+    selectedRow: any;
 
     showError = (i: number, row: any) => {
         return this.hasError;
@@ -35,9 +38,11 @@ export class GeneralTableComponent implements OnInit, OnDestroy {
     {
         this.dataSource = new MatTableDataSource<any[]>();
         this.displayedColumns = [];
-        this.hasError = false;
         this.pageSizeOptions = [5, 10, 25, 100]
         this.totalRecords = 0;
+
+        this.hasError = false;
+        this.selectedRow = null;
 
         this.filterFormControl = new FormControl();
         this.subscription = new Subject();
@@ -45,6 +50,7 @@ export class GeneralTableComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
         for (let col of this.config.columns) {
+            if (col.visible == false) continue;
             this.displayedColumns.push(col.name);
         }
 
@@ -92,6 +98,32 @@ export class GeneralTableComponent implements OnInit, OnDestroy {
 
     onPageChange(ev: any): void {
         console.log('Page Change =', ev);
+    }
+
+    onRowAction(ac: RowAction): void {
+        if (this.selectedRow == null) return;
+
+        if (ac.action === 'OnDelete') {
+            this.onDelete();
+            return;
+        }
+
+        const signal: TableSignal = {type: ac.action, row: this.selectedRow};
+        this.signal.emit(signal);
+        this.selectedRow = null;
+    }
+
+    onDelete() {
+        this.dataService.deleteData(this.config.slug, this.selectedRow);
+    }
+
+    onRowClick(row: any): void {
+        if (row === this.selectedRow) {
+            this.selectedRow = null;
+        }
+        else {
+            this.selectedRow = row;
+        }
     }
 
     cellValue(rec: any, col: TableColumn): any {

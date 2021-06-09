@@ -6,11 +6,21 @@
     .table-main-header {
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
 
-    .mat-form-field {
-        font-size: 14px;
-        width: 100%;
+    .title-section {
+        .mat-form-field {
+            font-size: 14px;
+            width: 100%;
+        }
+
+        display: flex;
+        align-items: center;
+    }
+
+    .action {
+        margin-right: 5px;
     }
     
     .table {  
@@ -36,6 +46,10 @@
             tr.mat-row:nth-child(even) {
                 background-color: #f8f6ff;
             }
+        }
+
+        .selected {
+            background-color: #a3a3a3 !important;
         }
     }
 

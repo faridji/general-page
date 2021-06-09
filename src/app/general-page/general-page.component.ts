@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PageConfig } from '../models/general.models';
+import { PageConfig, TableSignal } from '../models/general.models';
 
 
 @Component({
@@ -9,6 +9,18 @@ import { PageConfig } from '../models/general.models';
 })
 export class GeneralPageComponent {
 	@Input() config: PageConfig;
+    formData: any;
+    id: any;
 
-	constructor() {}
+	constructor() {
+        this.formData = null;
+        this.id = null;
+    }
+
+    onTableSignal(ev: TableSignal): void {
+        if (ev.type === 'OnEdit') {
+            this.formData = ev.row;
+            this.id = ev.row['id'];
+        }
+    }
 }
