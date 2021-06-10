@@ -10,6 +10,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort'; 
+import { MatProgressBarModule } from '@angular/material/progress-bar'; 
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatPaginatorModule,
     MatTableModule,
     MatSortModule,
+    MatProgressBarModule
   ],
   exports: [
     MatInputModule,
@@ -39,6 +41,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatPaginatorModule,
     MatTableModule,
     MatSortModule,
+    MatProgressBarModule
   ],
   providers: [
 	MatDatepickerModule

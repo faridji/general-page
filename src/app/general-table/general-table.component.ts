@@ -21,6 +21,7 @@ export class GeneralTableComponent implements OnInit, OnDestroy {
 
     displayedColumns: string[];
     hasError: boolean;
+    loading: boolean;
     pageSizeOptions: number[];
     totalRecords: number;
 
@@ -42,6 +43,7 @@ export class GeneralTableComponent implements OnInit, OnDestroy {
         this.totalRecords = 0;
 
         this.hasError = false;
+        this.loading = false;
         this.selectedRow = null;
 
         this.filterFormControl = new FormControl();
@@ -69,7 +71,9 @@ export class GeneralTableComponent implements OnInit, OnDestroy {
     }
 
     loadData(): void {
+        this.loading = true;
         this.dataService.getData(this.config.slug).subscribe(data => {
+            this.loading = false;
             this.dataSource.data = data;
             this.totalRecords = this.dataSource.data.length;
             this.checkIfNoRecord();
