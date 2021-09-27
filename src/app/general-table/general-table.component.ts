@@ -1,5 +1,5 @@
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { RowAction, TableColumn, TableConfig, TableSignal } from '../models/general.models';
@@ -35,7 +35,8 @@ export class GeneralTableComponent implements OnInit, OnDestroy {
 
 	constructor(private dateFormater: DatePipe, 
                 private numberFormater: DecimalPipe, 
-                private dataService: DataService) 
+                private dataService: DataService,
+                private cdr: ChangeDetectorRef) 
     {
         this.dataSource = new MatTableDataSource<any[]>();
         this.displayedColumns = [];
@@ -68,6 +69,7 @@ export class GeneralTableComponent implements OnInit, OnDestroy {
 
     ngAfterViewInit(): void {
         this.loadData();
+        this.cdr.detectChanges();
     }
 
     loadData(): void {
@@ -77,6 +79,9 @@ export class GeneralTableComponent implements OnInit, OnDestroy {
             this.dataSource.data = data;
             this.totalRecords = this.dataSource.data.length;
             this.checkIfNoRecord();
+        }, error => {
+            this.loading = false;
+            console.error('Error loading data.', error);
         });
     }
 
@@ -93,7 +98,17 @@ export class GeneralTableComponent implements OnInit, OnDestroy {
     }
 
     applyFilter(value: string): void {
-        console.log('Applying filter', value);
+        this.loading = true;
+
+        this.dataService.searchByName(this.config.slug, value).subscribe(resp => {
+            this.loading = false;
+            this.dataSource.data = resp;
+            this.totalRecords = this.dataSource.data.length;
+            this.checkIfNoRecord();
+        }, error => {
+            this.loading = false;
+            console.error('Error searching data.', error);
+        });
     }
 
     onSortChange(ev: any): void {

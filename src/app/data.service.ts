@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, QueryFn } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 
@@ -9,6 +9,14 @@ export class DataService {
 
     getData(slug: string): Observable<any> {
         return this.store.collection(slug).valueChanges({ idField: 'id' }) as Observable<any[]>;
+    }
+
+    searchByName(slug: string, search: any): Observable<any> {
+        const collectionRef = this.store.collection(slug, ref => {
+            return ref.where('name', '>=', search).where('name', '<=', search + '~')
+        });
+
+        return collectionRef.valueChanges() as Observable<any[]>;
     }
 
     setData(slug: string, rec: any) {
